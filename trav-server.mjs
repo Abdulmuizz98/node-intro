@@ -37,7 +37,10 @@ const server = http.createServer((req, res) => {
 
     let filename = path.join(__dirname, "/public", req.url == "/" ? "home.html" : req.url)
     let extname = path.extname(filename);
+    console.log(extname)
     let contentType = "text/html";
+
+    console.log(filename, "here")
 
     switch(extname){
         case ".json":
@@ -57,6 +60,8 @@ const server = http.createServer((req, res) => {
             break;
     }
     
+    if (contentType == "text/html" && extname == "") filename += ".html";
+
     fs.readFile(filename, (err, data) => {
         if(err) {
             if(err.code == "ENOENT"){
